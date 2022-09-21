@@ -1,0 +1,2 @@
+[{"model": "lettings.address", "pk": 1, "fields": {"number": 7217, "street": "Bedford Street", "city": "Brunswick", "state": "GA", "zip_code": 31525, "country_iso_code": "USA"}},
+ {"model": "lettings.letting", "pk": 1, "fields": {"title": "Joshua Tree Green Haus /w Hot Tub", "address": 1}}]

@@ -116,4 +116,3 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 
 STATIC_URL = '/static/'
-

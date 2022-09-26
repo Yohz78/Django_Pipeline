@@ -1,5 +1,7 @@
 import os
+import sentry_sdk
 from decouple import config
+from sentry_sdk.integrations.django import DjangoIntegration
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -119,3 +121,11 @@ ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+
+# SENTRY INTEGRATION
+sentry_sdk.init(
+    dsn=config('SENTRY_DSN', default="secretkey"),
+    integrations=[DjangoIntegration()],
+    traces_sample_rate=1.0,
+)

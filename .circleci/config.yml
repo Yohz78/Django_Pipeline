@@ -84,9 +84,20 @@ jobs:
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   all-branches: # This is the name of the workflow, feel free to change it to better match your workflow.
-    # Inside the workflow, you define the jobs you want to run. Test.
+    # Inside the workflow, you define the jobs you want to run.
     jobs:
       - build-and-test
-      - build-and-push
-      - deploy
-      - sentry
+
+  master-deploy:
+    jobs:
+      - build-and-push:
+          filters:
+            branches:
+              only:
+                - master
+      - deploy:
+          requires:
+            - build-and-push
+      - sentry:
+          requires:
+            - deploy

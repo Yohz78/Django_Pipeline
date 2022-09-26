@@ -9,9 +9,6 @@ WORKDIR /app
 RUN addgroup --system django \
     && adduser --system --ingroup django django
 
-RUN echo $DOCKER_USER
-RUN echo $DOCKER_PASSWORD
-
 # Set env variables
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
@@ -27,4 +24,4 @@ RUN python manage.py collectstatic --noinput --clear
 
 USER django
 
-CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD web gunicorn oc_lettings_site.wsgi:application

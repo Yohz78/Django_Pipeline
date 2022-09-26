@@ -51,6 +51,10 @@ jobs:
           command: |
             TAG=${CIRCLE_BUILD_NUM}
             docker build -t yohz/oc_lettings:$TAG .
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            docker tag yohz/oc_lettings:$TAG yohz/oc_lettings:latest
+            docker push yohz/oc_lettings:$TAG
+            docker push yohz/oc_lettings:latest
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows

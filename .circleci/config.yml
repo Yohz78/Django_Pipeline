@@ -55,6 +55,20 @@ jobs:
             docker tag yohz/oc_lettings:$TAG yohz/oc_lettings:latest
             docker push yohz/oc_lettings:$TAG
 
+  sentry:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: Install Sentry
+          command: |
+            curl -sL https://sentry.io/get-cli/ | bash
+            export SENTRY_RELEASE=$(sentry-cli releases propose-version)
+            sentry-cli releases new -p $SENTRY_PROJECT $SENTRY_RELEASE
+            sentry-cli releases set-commits $SENTRY_RELEASE --auto
+            sentry-cli releases files $SENTRY_RELEASE upload-sourcemaps path-to-sourcemaps-if-applicable
+            sentry-cli releases finalize $SENTRY_RELEASE
+
   deploy:
     docker:
       - image: cimg/python:3.10.2
@@ -74,3 +88,4 @@ workflows:
       - build-and-test
       - build-and-push
       - deploy
+      - sentry

@@ -88,9 +88,5 @@ workflows:
     jobs:
       - build-and-test
       - build-and-push
-      - deploy:
-        requires:
-          - build-and-push
-      - sentry:
-        requires:
-          - deploy
+      - deploy
+      - sentry

@@ -25,4 +25,4 @@ RUN python manage.py collectstatic --noinput --clear
 
 USER django
 
-CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD gunicorn oc_lettings_site.wsgi:application

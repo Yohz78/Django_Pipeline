@@ -58,9 +58,6 @@ jobs:
   sentry:
     docker:
       - image: cimg/python:3.10.2
-    environment:
-      SENTRY_ORG: yohz78
-      SENTRY_PROJECT: oc-lettings
     steps:
       - checkout # check out the code in the project directory
       - run: |

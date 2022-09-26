@@ -61,9 +61,6 @@ jobs:
     environment:
       SENTRY_ORG: $SENTRY_ORG
       SENTRY_PROJECT: $SENTRY_PROJECT
-    branches:
-      only:
-        - master
     steps:
       - checkout # check out the code in the project directory
       - run: |

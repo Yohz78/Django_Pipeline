@@ -59,8 +59,8 @@ jobs:
     docker:
       - image: circleci/node:4.8.2
     environment:
-      SENTRY_ORG: $SENTRY_ORG
-      SENTRY_PROJECT: $SENTRY_PROJECT
+      SENTRY_ORG: yohz78
+      SENTRY_PROJECT: oc-lettings
     steps:
       - checkout # check out the code in the project directory
       - run: |

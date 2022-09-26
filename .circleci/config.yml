@@ -58,8 +58,8 @@ jobs:
   sentry:
     machine: true
     environment:
-      SENTRY_ORG: my-org
-      SENTRY_PROJECT: my-project
+      SENTRY_ORG: $SENTRY_ORG
+      SENTRY_PROJECT: $SENTRY_PROJECT
     steps:
       - checkout
       - run: |

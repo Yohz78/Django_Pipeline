@@ -55,6 +55,16 @@ jobs:
             docker tag yohz/oc_lettings:$TAG yohz/oc_lettings:latest
             docker push yohz/oc_lettings:$TAG
 
+  deploy:
+    - image: yohz/oc_lettings:$TAG
+    steps:
+      - checkout
+      - run:
+          name: Deploy main to heroku
+          command: |
+            command: |
+            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git main
+
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
@@ -63,3 +73,4 @@ workflows:
     jobs:
       - build-and-test
       - build-and-push
+      - deploy

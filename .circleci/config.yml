@@ -56,15 +56,11 @@ jobs:
             docker push yohz/oc_lettings:$TAG
 
   sentry:
-    executor:
-    environment:
-      SENTRY_ORG: $SENTRY_ORG
-      SENTRY_PROJECT: $SENTRY_PROJECT
-      SENTRY_ENVIRONMENT: production
+    machine: true
     steps:
       - checkout
       - run:
-          name: Sentry
+          name: Install Sentry
           command: |
             curl -sL https://sentry.io/get-cli/ | bash
             export SENTRY_RELEASE=$(sentry-cli releases propose-version)
@@ -91,5 +87,5 @@ workflows:
     jobs:
       - build-and-test
       - build-and-push
-      - sentry
       - deploy
+      - sentry

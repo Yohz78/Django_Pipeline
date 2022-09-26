@@ -9,6 +9,8 @@ WORKDIR /app
 RUN addgroup --system django \
     && adduser --system --ingroup django django
 
+RUN echo $DOCKER_USER
+RUN echo $DOCKER_PASSWORD
 
 # Set env variables
 ENV PYTHONDONTWRITEBYTECODE=1

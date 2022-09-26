@@ -57,14 +57,12 @@ jobs:
 
   notify-sentry-deploy:
     executor:
-    # Specify executor for running deploy job
     environment:
-      SENTRY_ORG: sample-organization-slug
-      SENTRY_PROJECT: sample-project-slug
+      SENTRY_ORG: $SENTRY_ORG
+      SENTRY_PROJECT: $SENTRY_PROJECT
       SENTRY_ENVIRONMENT: production
     steps:
       - checkout
-      # ...
       - run:
           name: Create release and notify Sentry of deploy
           command: |

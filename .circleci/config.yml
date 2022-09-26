@@ -56,7 +56,6 @@ jobs:
             docker push yohz/oc_lettings:$TAG
 
   deploy:
-    - image: yohz/oc_lettings:$TAG
     steps:
       - checkout
       - run:

@@ -57,6 +57,9 @@ jobs:
 
   sentry:
     machine: true
+    environment:
+      SENTRY_ORG: my-org
+      SENTRY_PROJECT: my-project
     steps:
       - checkout
       - run: |

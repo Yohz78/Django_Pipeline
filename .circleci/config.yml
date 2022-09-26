@@ -55,19 +55,26 @@ jobs:
             docker tag yohz/oc_lettings:$TAG yohz/oc_lettings:latest
             docker push yohz/oc_lettings:$TAG
 
-  sentry:
-    machine: true
-    steps:
-      - checkout
-      - run:
-          name: Install Sentry
-          command: |
-            curl -sL https://sentry.io/get-cli/ | bash
-            export SENTRY_RELEASE=$(sentry-cli releases propose-version)
-            sentry-cli releases new -p $SENTRY_PROJECT $SENTRY_RELEASE
-            sentry-cli releases set-commits $SENTRY_RELEASE --auto
-            sentry-cli releases files $SENTRY_RELEASE upload-sourcemaps path-to-sourcemaps-if-applicable
-            sentry-cli releases finalize $SENTRY_RELEASE
+notify-sentry-deploy:
+  executor:
+  # Specify executor for running deploy job
+  environment:
+    SENTRY_ORG: sample-organization-slug
+    SENTRY_PROJECT: sample-project-slug
+    SENTRY_ENVIRONMENT: production
+  steps:
+    - checkout
+    # ...
+    - run:
+        name: Create release and notify Sentry of deploy
+        command: |
+          curl -sL https://sentry.io/get-cli/ | bash
+          export SENTRY_RELEASE=$(sentry-cli releases propose-version)
+          sentry-cli releases new -p $SENTRY_PROJECT $SENTRY_RELEASE
+          sentry-cli releases set-commits $SENTRY_RELEASE --auto
+          sentry-cli releases files $SENTRY_RELEASE upload-sourcemaps path-to-sourcemaps-if-applicable
+          sentry-cli releases finalize $SENTRY_RELEASE
+          sentry-cli releases deploys $SENTRY_RELEASE new -e $SENTRY_ENVIRONMENT
 
   deploy:
     docker:

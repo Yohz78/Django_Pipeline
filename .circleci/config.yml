@@ -51,6 +51,7 @@ jobs:
           command: |
             TAG=${CIRCLE_BUILD_NUM}
             docker build -t yohz/oc_lettings:$TAG .
+            docker build --progress=plain .
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
